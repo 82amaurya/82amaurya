@@ -1,0 +1,29 @@
+---
+- name: Delete ACI Configuration
+  hosts: apic
+  connection: local
+  gather_facts: False
+  
+  vars:
+    tenant: 'POC-TEST'
+    vrf: 'test-POC-vrf'
+  
+  tasks:
+    - name: Delete VRF
+      aci_vrf:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "absent"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        vrf: "{{ vrf }}"
+
+    - name: Delete Tenant
+      aci_tenant:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "absent"
+        validate_certs: False
+        tenant: "{{ tenant }}"
